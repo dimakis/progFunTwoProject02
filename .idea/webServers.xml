@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e4b6a3bb-115f-4f5a-b6fa-37306523be43" name="personalOneDrive" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="$USER_HOME$/personalOnedrive/GitIntelliJProjectVSC" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
