@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class DoctorAPI {
 
-    private ArrayList<Doctor> doctors;
+    private ArrayList<Doctor> doctors = new ArrayList<>();
 
     public void addDoctor(Doctor doctor) {
         doctors.add(doctor);
@@ -44,9 +44,19 @@ public class DoctorAPI {
 
     public String listDoctors()
     {
+        String listOfDoctors = null;
+        for (int i = 0; i < numberOfDoctors() ; i++) {
+            listOfDoctors =+ i + getDoctor(i).toString() + "\n";
+        }
 
+
+        return listOfDoctors;
+    }
+
+    public String listAllRegisteredDoctors() {
         return null;
     }
+
 
 
     public String listDoctors(String listOfDoctors) {
