@@ -3,16 +3,20 @@ package controllers;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import models.Doctor;
+import models.General;
+import models.Specialist;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class DoctorAPI {
 
     private ArrayList<Doctor> doctors = new ArrayList<>();
+
 
     public void addDoctor(Doctor doctor) {
         doctors.add(doctor);
@@ -34,44 +38,107 @@ public class DoctorAPI {
     }
 
     public int numberOfDoctors() {
-        if (doctors.size() != 0) {
-            return doctors.size();
-        } else
-
-            return 0;
+        return doctors.size();
     }
+/*
+    public boolean isQuailifiedInIreland() {
 
+        return qualifiedInIreland;
+    }
+*/
 
-    public String listDoctors()
-    {
-        String listOfDoctors = null;
-        for (int i = 0; i < numberOfDoctors() ; i++) {
-            listOfDoctors =+ i + getDoctor(i).toString() + "\n";
+    public String listDoctors() {
+        String listOfDoctors = "";
+        if (numberOfDoctors() != 0) {
+            for (int i = 0; i < numberOfDoctors(); i++) {
+                listOfDoctors = listOfDoctors + i + ") " + getDoctor(i) + "\n";
+            }
         }
-
-
         return listOfDoctors;
     }
 
-    public String listAllRegisteredDoctors() {
-        return null;
-    }
+    public String listQualifications(int indexOfDoc) {
+        String listOfQualifications = "";
+        for (int i = 0; i < getDoctor(indexOfDoc).getQualifications().size(); i++) {
+            listOfQualifications += i + ") " + getDoctor(indexOfDoc).getQualifications().toString();
 
+        }
+        return listOfQualifications;
+
+    }
+/*
+    public HashSet<String> getSpecialism() {
+        if (Specialist. != null) {
+
+            return specialism;
+        } else
+            return null;
+    }
+/*
+    public String listAllRegisteredDoctors() {
+        {
+            String listOfDoctors = null;
+            for (int i = 0; i < numberOfDoctors(); i++) {
+                if (getDoctor(i).) {
+                    listOfDoctors = +i + getDoctor(i).toString() + "\n";
+                }
+                return listOfDoctors;
+            }
+
+            return null;
+        }
+    }
+*/
 
 
     public String listDoctors(String listOfDoctors) {
 
+
         return null;
     }
 
-    public String searchDoctorsByName(ArrayList<Doctor>doctors) {
+    public String doctorByCategory(String category) {
+        String docByCategory1 = "";
+        String docByCategory2 = "";
+        String docByCategory3 = "";
+        for (int i = 0; i < numberOfDoctors(); i++) {
+            double regFee = doctors.get(i).calcRegistrationFee();
+            if ((regFee == 194) || (regFee == 410)) {
+                docByCategory1 += i + doctors.get(i).toString() + "\n";
+            } else if ((regFee == 641) || (regFee == 425)) {
+                docByCategory2 += i + doctors.get(i).toString() + "\n";
+            } else
+                docByCategory3 += i + doctors.get(i).toString() + "\n";
+        }
+        if (category.equalsIgnoreCase("1")) {
+            return
+                    docByCategory1;
+        } else if (category.equalsIgnoreCase("2")) {
+            return docByCategory2;
+        } else
+            return
+                    docByCategory3;
+    }
 
-        return null;
+    public ArrayList<Doctor> searchDoctorsByName(String specificDoctorByName) {
+        ArrayList<Doctor> doctorByName = new ArrayList<>();
+        for (int i = 0; i < numberOfDoctors(); i++) {
+            if (getDoctor(i).getName().equalsIgnoreCase(specificDoctorByName)) {
+                doctorByName.add(getDoctor(i));
+            }
+
+        }
+
+        return doctorByName;
     }
 
     public int calculateAnnualFees() {
+        int runningTotal = 0;
+        for (int i = 0; i < numberOfDoctors(); i++){
+            runningTotal += (int) getDoctor(i).calcRegistrationFee();
+        }
 
-        return 0;
+        return runningTotal;
     }
 
     public void load() throws Exception {
