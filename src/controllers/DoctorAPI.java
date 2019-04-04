@@ -2,16 +2,13 @@ package controllers;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import models.Doctor;
-import models.General;
-import models.Specialist;
+import models.*;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class DoctorAPI {
 
@@ -40,12 +37,6 @@ public class DoctorAPI {
     public int numberOfDoctors() {
         return doctors.size();
     }
-/*
-    public boolean isQuailifiedInIreland() {
-
-        return qualifiedInIreland;
-    }
-*/
 
     public String listDoctors() {
         String listOfDoctors = "";
@@ -64,16 +55,9 @@ public class DoctorAPI {
 
         }
         return listOfQualifications;
-
     }
-/*
-    public HashSet<String> getSpecialism() {
-        if (Specialist. != null) {
 
-            return specialism;
-        } else
-            return null;
-    }
+
 /*
     public String listAllRegisteredDoctors() {
         {
@@ -97,34 +81,67 @@ public class DoctorAPI {
         return null;
     }
 
-    public String doctorByCategory(String category) {
-        String docByCategory1 = "";
-        String docByCategory2 = "";
-        String docByCategory3 = "";
+    public String doctorByCategory(int category) {
+        String docByCategoryGen = "";
+        String docByCategorySpec = "";
+        String docByCategoryIntern = "";
+        String docByCategoryConsult = "";
+        String toReturn = "";
         for (int i = 0; i < numberOfDoctors(); i++) {
-            double regFee = doctors.get(i).calcRegistrationFee();
-            if ((regFee == 194) || (regFee == 410)) {
-                docByCategory1 += i + doctors.get(i).toString() + "\n";
-            } else if ((regFee == 641) || (regFee == 425)) {
-                docByCategory2 += i + doctors.get(i).toString() + "\n";
+            if (getDoctor(i) instanceof General) {
+                docByCategoryGen += i + getDoctor(i).toString();
+            } else if (getDoctor(i) instanceof Specialist) {
+                docByCategorySpec += i + getDoctor(i).toString();
+            } else if (getDoctor(i) instanceof Intern) {
+                docByCategoryIntern += i + getDoctor(i).toString();
             } else
-                docByCategory3 += i + doctors.get(i).toString() + "\n";
+                docByCategoryConsult += i + getDoctor(i).toString();
+            if (category == 1) {
+                docByCategoryGen = toReturn;
+            } else if (category == 2) {
+                docByCategorySpec = toReturn;
+            } else if (category == 3) {
+                docByCategoryIntern = toReturn;
+            } else
+                docByCategoryConsult = toReturn;
         }
-        if (category.equalsIgnoreCase("1")) {
-            return
-                    docByCategory1;
-        } else if (category.equalsIgnoreCase("2")) {
-            return docByCategory2;
-        } else
-            return
-                    docByCategory3;
+        return toReturn;
     }
 
-    public ArrayList<Doctor> searchDoctorsByName(String specificDoctorByName) {
-        ArrayList<Doctor> doctorByName = new ArrayList<>();
+    public ArrayList<Doctor> docByCategoryArr(int category) {
+        ArrayList<Doctor> arrGeneral = new ArrayList();
+        ArrayList<Doctor> arrSpecialist = new ArrayList();
+        ArrayList<Doctor> arrIntern = new ArrayList();
+        ArrayList<Doctor> arrConsultant = new ArrayList();
         for (int i = 0; i < numberOfDoctors(); i++) {
-            if (getDoctor(i).getName().equalsIgnoreCase(specificDoctorByName)) {
-                doctorByName.add(getDoctor(i));
+            if (getDoctor(i) instanceof General) {
+                arrGeneral.add(getDoctor(i));
+            } else if (getDoctor(i) instanceof Specialist) {
+                arrSpecialist.add(getDoctor(i));
+            } else if (getDoctor(i) instanceof Intern) {
+                arrIntern.add(getDoctor(i));
+            } else {
+                arrConsultant.add(getDoctor(i));
+            }
+        }
+        ArrayList<Doctor> toReturn;
+        if (category == 1) {
+            toReturn = arrGeneral;
+        } else if (category == 2) {
+            toReturn = arrSpecialist;
+        } else if (category == 3) {
+            toReturn = arrIntern;
+        } else
+            toReturn = arrConsultant;
+        return
+                toReturn;
+    }
+
+    public String searchDoctorsByName(String specificDoctorByName) {
+        String doctorByName = "";
+        for (int i = 0; i < numberOfDoctors(); i++) {
+            if (getDoctor(i).getName().contains(specificDoctorByName)) {
+                doctorByName += i + getDoctor(i).toString();
             }
 
         }
@@ -132,9 +149,31 @@ public class DoctorAPI {
         return doctorByName;
     }
 
+    /*
+        public String listDocBySpecialism() {
+            String listOfSpecialisms = "";
+            for (int i = 0; i < numberOfDoctors(); i++) {
+                if ((getDoctor(i) instanceof Specialist) || getDoctor(i) instanceof Consultants) {
+                    getDoctor(i).get
+
+                }
+            }
+        }
+    */
+    public String isRegisteredInIreland() {
+        String listOfIrishRegDocs = "";
+        for (int i = 0; i < numberOfDoctors(); i++) {
+            if (getDoctor(i).isQuailifiedInIreland()) {
+                listOfIrishRegDocs += i + getDoctor(i).toString() + "\n";
+            }
+        }
+        return
+                listOfIrishRegDocs;
+    }
+
     public int calculateAnnualFees() {
         int runningTotal = 0;
-        for (int i = 0; i < numberOfDoctors(); i++){
+        for (int i = 0; i < numberOfDoctors(); i++) {
             runningTotal += (int) getDoctor(i).calcRegistrationFee();
         }
 
@@ -154,4 +193,6 @@ public class DoctorAPI {
         out.writeObject(doctors);
         out.close();
     }
+
+
 }
