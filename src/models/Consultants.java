@@ -3,12 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Consultants extends Specialist{
+public class Consultants extends RegisteredDoctor{
 
     private ArrayList<Publications> publications; // = new ArrayList<>();
     private HashSet<String> specialism; // = new HashSet<>();
     public Consultants(String name, int doctorNumber, String dob, char gender, String address, String contactNumber, ArrayList<Qualification> qualifications, HashSet<String> specialism, boolean qualifiedInIreland, ArrayList<Publications> publications) {
-        super(name, doctorNumber, dob, gender, address, contactNumber, qualifications, specialism, qualifiedInIreland);
+        super(name, doctorNumber, dob, gender, address, contactNumber, qualifiedInIreland, qualifications);
         this.specialism = specialism;
         this.publications = publications;
     }
