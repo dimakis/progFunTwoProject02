@@ -62,10 +62,15 @@ public class Publications {
 
     @Override
     public String toString() {
-        return "Article Name: " + articleName + "\n" +
-                "Date Published: " + datePublished + "\n" +
-                "Times Cited: " + timesCited + "\n" +
-                "Area Of Expertise: " + areaOfExpertise + "\n" +
-                "Irish Medical Journal: " + irishMedicalJournal + "\n";
+            String areaOfExper = "";
+            ArrayList<String> expertise = new ArrayList<>(areaOfExpertise);
+        for (int i = 0; i < expertise.size(); i++) {
+            areaOfExper += "\n" + "\t" + "\t" + expertise.get(i);
+        }
+        return "\t" + "Article Name: " + articleName + "\n" +
+                "\t" +"Date Published: " + datePublished + "\n" +
+                "\t" +"Times Cited: " + timesCited + "\n" +
+                "\t" +"Area Of Expertise: " + areaOfExper + "\n" +
+                "\t" +"Published in Irish Medical Journal: " + irishMedicalJournal + "\n";
     }
 }
