@@ -62,6 +62,9 @@ public class Publications {
 
     @Override
     public String toString() {
+        String publi = "";
+
+
             String areaOfExper = "";
             ArrayList<String> expertise = new ArrayList<>(areaOfExpertise);
         for (int i = 0; i < expertise.size(); i++) {

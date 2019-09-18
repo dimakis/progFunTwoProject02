@@ -39,7 +39,7 @@ public class DoctorAPI {
 
 
     /**
-     * Gets the Doctor from the ArrayList by the Doctors ID
+     * Gets the Doctor from the ArrayList by the Doctors ID number
      *
      * @param doctorToGet
      * @return
@@ -291,7 +291,7 @@ public class DoctorAPI {
     public String searchDocsByNameContact(String specificDoctorByName) {
         String doctorByName = "";
         for (int i = 0; i < numberOfDoctors(); i++) {
-            if (getDoctor(i).getName().contains(specificDoctorByName)) {
+            if (getDoctor(i).getName().toLowerCase().contains(specificDoctorByName.toLowerCase())) {
                 doctorByName += i + getDoctor(i).viewContactDetails();
             }
         }
@@ -326,7 +326,7 @@ public class DoctorAPI {
     }
 
     /**
-     * Loads the doctors from the .xml file and adds them to existing ArrayList of doctos.Throws Exception - handled in Driver.
+     * Loads the doctors from the .xml file and adds them to existing ArrayList of doctors.Throws Exception - handled in Driver.
      * @throws Exception
      */
     public void load() throws Exception {
@@ -349,6 +349,4 @@ public class DoctorAPI {
         idOut.writeObject(Doctor.getIdCountnumber());
         idOut.close();
     }
-
-
 }

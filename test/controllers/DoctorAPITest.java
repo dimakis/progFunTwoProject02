@@ -23,8 +23,6 @@ public class DoctorAPITest {
 
     Qualification qualOne;
     Qualification qualTwo;
-    ArrayList publications;
-
 
     @Before
     public void setUp() {
@@ -54,6 +52,7 @@ public class DoctorAPITest {
     public void tearDown() {
         doctorList = doctorNone = null;
         doctorGeneral = doctorConsultant = doctorIntern = doctorSpecialist = null;
+        qualOne = qualTwo = null;
     }
 
     @Test
@@ -87,6 +86,7 @@ public class DoctorAPITest {
 
         //Checks to see if a doctor that exists but is not  in list is returned or null is returned
         assertNull(doctorList.getDocById(3));
+        //assertThat()
     }
 
 
@@ -181,7 +181,7 @@ public class DoctorAPITest {
     @Test
     public void searchDoctorsByName() {
         //test to see if doctor list returns doctor in list
-        assertTrue(doctorList.searchDoctorsByName("Mike").contains("Mike"));
+        assertTrue(doctorList.searchDoctorsByName("Mik").contains("Mike"));
 
         //removing mike
         doctorList.removeDocById(1);
